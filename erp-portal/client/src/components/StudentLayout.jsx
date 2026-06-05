@@ -11,27 +11,25 @@ const StudentLayout = ({ children }) => {
 
         <hr />
 
-        <Link to="/student" className="menu-link">
-          Dashboard
-        </Link>
+        <Link to="/student">Dashboard</Link>
 
-        <Link to="/student/profile" className="menu-link">
+        <Link to="/student/profile">
           My Profile
         </Link>
 
-        <Link to="/student/attendance" className="menu-link">
+        <Link to="/student/attendance">
           Attendance
         </Link>
 
-        <Link to="/student/subjects" className="menu-link">
+        <Link to="/student/subjects">
           Subjects
         </Link>
 
-        <Link to="/student/assignments" className="menu-link">
+        <Link to="/student/assignments">
           Assignments
         </Link>
 
-        <Link to="/student/results" className="menu-link">
+        <Link to="/student/results">
           Results
         </Link>
 
@@ -40,7 +38,7 @@ const StudentLayout = ({ children }) => {
         </button>
       </aside>
 
-      {/* Main Content */}
+      {/* Content */}
       <main className="content">
         {children}
       </main>
