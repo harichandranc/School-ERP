@@ -1,6 +1,7 @@
 import Teacher from "../models/Teacher.js";
 import User from "../models/User.js";
 import mongoose from "mongoose";
+import Student from "../models/Student.js";
 
 
 // ================= CREATE TEACHER =================
@@ -254,3 +255,40 @@ export const deleteTeacher =
       });
     }
   };
+
+export const getMyStudents = async (req, res) => {
+  try {
+    const teacher = await Teacher.findOne({
+      user: req.user._id,
+    });
+
+    console.log("===== TEACHER =====");
+    console.log(teacher);
+
+    if (!teacher) {
+      return res.status(404).json({
+        message: "Teacher not found",
+      });
+    }
+
+    const students = await Student.find({
+      class: teacher.assignedClass,
+      section: teacher.assignedSection,
+    }).populate(
+      "user",
+      "name email"
+    );
+
+    console.log("===== STUDENTS FOUND =====");
+    console.log(students);
+
+    res.json(students);
+
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
