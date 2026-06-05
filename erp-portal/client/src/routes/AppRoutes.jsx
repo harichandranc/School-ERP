@@ -9,6 +9,7 @@ import Login from "../pages/auth/Login";
 import AdminDashboard from "../pages/admin/Dashboard";
 import ProtectedRoute from "../components/ProtectedRoute";
 import StudentDashboard from "../pages/student/StudentDashboard";
+import TeacherDashboard from "../pages/teacher/TeacherDashboard";
 
 const AppRoutes = () => {
   return (
@@ -40,6 +41,15 @@ const AppRoutes = () => {
           element={
             <ProtectedRoute role="student">
               <StudentDashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/teacher"
+          element={
+            <ProtectedRoute role="teacher">
+              <TeacherDashboard />
             </ProtectedRoute>
           }
         />
