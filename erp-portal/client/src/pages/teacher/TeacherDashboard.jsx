@@ -4,15 +4,29 @@ import TeacherLayout from "../../components/TeacherLayout";
 
 const TeacherDashboard = () => {
   const [teacher, setTeacher] = useState(null);
+  const [students, setStudents] = useState([]);
 
   useEffect(() => {
     fetchTeacher();
+    fetchStudents();
   }, []);
 
   const fetchTeacher = async () => {
     try {
       const { data } = await API.get("/teachers/me");
       setTeacher(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const fetchStudents = async () => {
+    try {
+      const { data } = await API.get(
+        "/teachers/students"
+      );
+
+      setStudents(data);
     } catch (error) {
       console.error(error);
     }
@@ -26,14 +40,53 @@ const TeacherDashboard = () => {
         </h1>
 
         <p>
-          <strong>Assigned Class:</strong>{" "}
+          Assigned Class:
+          {" "}
           {teacher?.assignedClass}
         </p>
 
         <p>
-          <strong>Assigned Section:</strong>{" "}
+          Assigned Section:
+          {" "}
           {teacher?.assignedSection}
         </p>
+      </div>
+
+      <div className="card">
+        <h2>My Students</h2>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Class</th>
+              <th>Section</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {students.map((student) => (
+              <tr key={student._id}>
+                <td>
+                  {student.user?.name}
+                </td>
+
+                <td>
+                  {student.user?.email}
+                </td>
+
+                <td>
+                  {student.class}
+                </td>
+
+                <td>
+                  {student.section}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </TeacherLayout>
   );
