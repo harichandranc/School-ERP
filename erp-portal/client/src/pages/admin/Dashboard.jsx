@@ -140,6 +140,8 @@ const [teachers, setTeachers] = useState([]);
         assignedSection: tSection,
       });
 
+      console.log("TEACHER API RESPONSE:", data);
+
       alert(
         `Teacher Created\nEmail: ${data.login.email}\nPassword: ${data.login.password}`
       );
@@ -152,7 +154,15 @@ const [teachers, setTeachers] = useState([]);
       fetchTeachers();
 
     } catch (error) {
-      alert(error.response?.data?.message);
+      console.log("CREATE TEACHER ERROR:", error);
+      console.log("RESPONSE:", error.response);
+      console.log("DATA:", error.response?.data);
+
+
+      alert(error.response?.data?.message ||
+        error.message || "unknown error"
+
+      );
    }
   };
 
@@ -245,10 +255,6 @@ const [teachers, setTeachers] = useState([]);
 
           <button>Create Teacher</button>
         </form>
-
-          <br /><br />
-
-          <input
 
         {/* 🔍 SEARCH + FILTER */}
         <h2>Students</h2>
@@ -357,6 +363,33 @@ const [teachers, setTeachers] = useState([]);
             ))}
           </tbody>
         </table>
+
+
+        <hr />
+
+        <h2>Teachers</h2>
+
+        <table border="1" cellPadding="10">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Class</th>
+              <th>Section</th>
+            </tr>
+          </thead>
+
+        <tbody>
+          {teachers.map((t) => (
+            <tr key={t._id}>
+            <td>{t.user?.name}</td>
+            <td>{t.user?.email}</td>
+            <td>{t.assignedClass}</td>
+            <td>{t.assignedSection || "-"}</td>
+            </tr>
+       ))}
+        </tbody>
+     </table>
 
         {/* 📄 PAGINATION */}
         <div style={{ marginTop: "20px" }}>

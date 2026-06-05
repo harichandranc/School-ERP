@@ -9,6 +9,7 @@ import attendanceRoutes from "./routes/attendanceRoutes.js";
 import assignmentRoutes from "./routes/assignmentRoutes.js";
 import courseRoutes from "./routes/courseRoutes.js";
 import submissionRoutes from "./routes/submissionRoutes.js";
+import teacherRoutes from "./routes/teacherRoutes.js";
 
 dotenv.config();
 
@@ -53,6 +54,8 @@ app.use("/api/courses", courseRoutes);
 app.use("/api/attendance", attendanceRoutes);
 app.use("/api/assignments", assignmentRoutes);
 app.use("/api/submissions", submissionRoutes);
+app.use("/api/teachers", teacherRoutes);
+
 
 // 🏠 Root
 app.get("/", (req, res) => {
