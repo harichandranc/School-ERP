@@ -8,25 +8,16 @@ const StudentDashboard = () => {
   const [student, setStudent] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const user = JSON.parse(
-    localStorage.getItem("user")
-  );
-
   useEffect(() => {
-    fetchProfile();
+    fetchStudent();
   }, []);
 
-  const fetchProfile = async () => {
+  const fetchStudent = async () => {
     try {
-      const res = await API.get("/students/me", {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      });
-
+      const res = await API.get("/students/me");
       setStudent(res.data);
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
     } finally {
       setLoading(false);
     }
@@ -38,7 +29,11 @@ const StudentDashboard = () => {
   };
 
   if (loading) {
-    return <h2>Loading...</h2>;
+    return (
+      <div style={{ padding: "30px" }}>
+        Loading...
+      </div>
+    );
   }
 
   return (
@@ -73,7 +68,7 @@ const StudentDashboard = () => {
 
       <hr />
 
-      <h3>Modules</h3>
+      <h3>Student Modules</h3>
 
       <ul>
         <li>My Profile</li>
