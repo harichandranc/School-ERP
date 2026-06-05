@@ -26,9 +26,13 @@ const TeacherDashboard = () => {
         "/teachers/students"
       );
 
+      console.log("STUDENTS API RESPONSE:", data);
+
+
       setStudents(data);
     } catch (error) {
-      console.error(error);
+      console.error("STUDENTS ERROR:", error);
+      console.log("ERROR DATA:", error.response?.data);
     }
   };
 
