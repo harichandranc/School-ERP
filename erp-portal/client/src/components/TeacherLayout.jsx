@@ -60,26 +60,7 @@ const TeacherLayout = ({ children }) => {
         >
           <p>Subjects</p>
         </Link>
-
-        <Link
-          to="/teacher/assignments"
-          style={{
-            textDecoration: "none",
-            color: "white",
-          }}
-        >
-          <p>Assignments</p>
-        </Link>
-
-        <Link
-          to="/teacher/results"
-          style={{
-            textDecoration: "none",
-            color: "white",
-          }}
-        >
-          <p>Results</p>
-        </Link>
+ 
 
         <button
           onClick={logout}
