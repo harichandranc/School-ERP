@@ -31,6 +31,13 @@ router.get(
   getStudents
 );
 
+router.get(
+  "/me",
+  protect,
+  authorizeRoles("student"),
+  getStudent
+);
+
 // GET SINGLE
 router.get(
   "/:id",
