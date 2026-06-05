@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { logout } from "../utils/auth";
 import "../App.css";
 
@@ -10,12 +11,75 @@ const TeacherLayout = ({ children }) => {
 
         <hr />
 
-        <p>Dashboard</p>
-        <p>Students</p>
-        <p>Attendance</p>
-        <p>Subjects</p>
-        <p>Assignments</p>
-        <p>Results</p>
+        <Link
+          to="/teacher"
+          style={{
+            textDecoration: "none",
+            color: "white",
+          }}
+        >
+          <p>Dashboard</p>
+        </Link>
+
+        <Link
+          to="/teacher/profile"
+          style={{
+            textDecoration: "none",
+            color: "white",
+          }}
+        >
+          <p>Profile</p>
+        </Link>
+
+        <Link
+          to="/teacher/students"
+          style={{
+            textDecoration: "none",
+            color: "white",
+          }}
+        >
+          <p>Students</p>
+        </Link>
+
+        <Link
+          to="/teacher/attendance"
+          style={{
+            textDecoration: "none",
+            color: "white",
+          }}
+        >
+          <p>Attendance</p>
+        </Link>
+
+        <Link
+          to="/teacher/subjects"
+          style={{
+            textDecoration: "none",
+            color: "white",
+          }}
+        >
+          <p>Subjects</p>
+        </Link>
+
+        <Link
+          to="/teacher/assignments"
+          style={{
+            textDecoration: "none",
+            color: "white",
+          }}
+        >
+          <p>Assignments</p>
+        </Link>
+
+        <Link
+          to="/teacher/results"
+          style={{
+            textDecoration: "none",
+            color: "white",
+          }}
+        >
+          <p>Results</p>
+        </Link>
 
         <button
           onClick={logout}

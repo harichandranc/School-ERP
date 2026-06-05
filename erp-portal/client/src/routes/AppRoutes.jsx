@@ -10,6 +10,8 @@ import AdminDashboard from "../pages/admin/Dashboard";
 import ProtectedRoute from "../components/ProtectedRoute";
 import StudentDashboard from "../pages/student/StudentDashboard";
 import TeacherDashboard from "../pages/teacher/TeacherDashboard";
+import StudentProfile from "../pages/student/Profile";
+import TeacherProfile from "../pages/teacher/Profile";
 
 const AppRoutes = () => {
   return (
@@ -50,6 +52,24 @@ const AppRoutes = () => {
           element={
             <ProtectedRoute role="teacher">
               <TeacherDashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/student/profile"
+          element={
+            <ProtectedRoute role="student">
+              <StudentProfile />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/teacher/profile"
+          element={
+            <ProtectedRoute role="teacher">
+              <TeacherProfile />
             </ProtectedRoute>
           }
         />
