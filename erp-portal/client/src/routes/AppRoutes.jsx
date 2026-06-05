@@ -8,6 +8,7 @@ import {
 import Login from "../pages/auth/Login";
 import AdminDashboard from "../pages/admin/Dashboard";
 import ProtectedRoute from "../components/ProtectedRoute";
+import StudentDashboard from "../pages/student/StudentDashboard";
 
 const AppRoutes = () => {
   return (
@@ -34,7 +35,14 @@ const AppRoutes = () => {
           }
         />
 
-        
+        <Route
+          path="/student"
+          element={
+            <ProtectedRoute role="student">
+              <StudentDashboard />
+            </ProtectedRoute>
+          }
+        />
 
       </Routes>
 
