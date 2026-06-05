@@ -1,10 +1,12 @@
 import { useState } from "react";
 import API from "../../api/axios";
+import "./Login.css";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -14,90 +16,117 @@ const Login = () => {
     try {
       setLoading(true);
 
-      const response = await API.post(
-        "/auth/login",
-        {
-          email,
-          password,
-        }
-      );
+      const response = await API.post("/auth/login", {
+        email,
+        password,
+      });
 
       const data = response.data;
 
-      console.log("LOGIN SUCCESS:", data);
-
-      // ✅ Store user
       localStorage.setItem(
         "user",
         JSON.stringify(data)
       );
 
-      // ✅ Redirect
       if (data.role === "admin") {
         window.location.href = "/admin";
-      }
-
-      else if (data.role === "student") {
+      } else if (data.role === "student") {
         window.location.href = "/student";
-      }
-
-      else if (data.role === "teacher") {
+      } else if (data.role === "teacher") {
         window.location.href = "/teacher";
-   }
-
-      else {
+      } else {
         alert("Unknown role");
       }
-
     } catch (error) {
-      console.log(error);
-
       alert(
         error.response?.data?.message ||
         "Login failed"
       );
-
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div style={{ padding: "50px" }}>
-      <h2>Login</h2>
+    <div className="login-page">
+      <div className="login-card">
 
-      <form onSubmit={submitHandler}>
+        <div className="login-header">
+          <img
+            src="/school.jpg"
+            alt="School Logo"
+            className="logo"
+          />
 
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) =>
-            setEmail(e.target.value)
-          }
-        />
+          <h1>School ERP</h1>
 
-        <br /><br />
 
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) =>
-            setPassword(e.target.value)
-          }
-        />
+          <p className="portal-text">
+            Student • Teacher • Admin Portal
+          </p>
+        </div>
 
-        <br /><br />
+        <form onSubmit={submitHandler}>
 
-        <button
-          type="submit"
-          disabled={loading}
-        >
-          {loading ? "Logging in..." : "Login"}
-        </button>
+          <div className="input-group">
+            <input
+              type="email"
+              placeholder="Enter Email Address"
+              value={email}
+              onChange={(e) =>
+                setEmail(e.target.value)
+              }
+              required
+            />
+          </div>
 
-      </form>
+          <div className="input-group">
+            <input
+              type={
+                showPassword
+                  ? "text"
+                  : "password"
+              }
+              placeholder="Enter Password"
+              value={password}
+              onChange={(e) =>
+                setPassword(e.target.value)
+              }
+              required
+            />
+
+            <button
+              type="button"
+              className="show-btn"
+              onClick={() =>
+                setShowPassword(
+                  !showPassword
+                )
+              }
+            >
+              {showPassword
+                ? "Hide"
+                : "Show"}
+            </button>
+          </div>
+
+          <button
+            className="login-btn"
+            type="submit"
+            disabled={loading}
+          >
+            {loading
+              ? "Logging In..."
+              : "Login"}
+          </button>
+
+        </form>
+
+        <div className="footer-text">
+          © 2026 School ERP System
+        </div>
+
+      </div>
     </div>
   );
 };
