@@ -41,6 +41,10 @@ const Login = () => {
         window.location.href = "/student";
       }
 
+      else if (data.role === "teacher") {
+        window.location.href = "/teacher";
+   }
+
       else {
         alert("Unknown role");
       }

@@ -7,8 +7,13 @@ const AdminDashboard = () => {
   const [email, setEmail] = useState("");
   const [studentClass, setStudentClass] = useState("");
   const [section, setSection] = useState("");
-
   const [students, setStudents] = useState([]);
+
+const [tName, setTName] = useState("");
+const [tEmail, setTEmail] = useState("");
+const [tClass, setTClass] = useState("");
+const [tSection, setTSection] = useState("");
+const [teachers, setTeachers] = useState([]);
 
   // 🔍 search + filter + pagination
   const [search, setSearch] = useState("");
@@ -41,6 +46,7 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     fetchStudents();
+    fetchTeachers();
   }, [search, filterClass, page]);
 
   // ✅ CREATE
@@ -109,6 +115,48 @@ const AdminDashboard = () => {
     }
   };
 
+  //Teacher
+
+  const fetchTeachers = async () => {
+    try {
+      const { data } = await API.get("/teachers");
+      setTeachers(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const createTeacher = async (e) => {
+    e.preventDefault();
+
+    if (!tName || !tEmail || !tClass) {
+      return alert("All teacher fields are required");
+    }
+
+    try {
+      const { data } = await API.post("/teachers", {
+        name: tName,
+        email: tEmail,
+        assignedClass: tClass,
+        assignedSection: tSection,
+      });
+
+      alert(
+        `Teacher Created\nEmail: ${data.login.email}\nPassword: ${data.login.password}`
+      );
+
+      setTName("");
+      setTEmail("");
+      setTClass("");
+      setTSection("");
+
+      fetchTeachers();
+
+    } catch (error) {
+      alert(error.response?.data?.message);
+   }
+  };
+
+
   return (
     <AdminLayout>
       <div>
@@ -158,6 +206,49 @@ const AdminDashboard = () => {
         </form>
 
         <hr />
+
+        <hr />
+
+        {/* CREATE TEACHER */}
+        <h2>Create Teacher</h2>
+
+        <form onSubmit={createTeacher}>
+          <input
+            placeholder="Name"
+            value={tName}
+            onChange={(e) => setTName(e.target.value)}
+          />
+          <br /><br />
+
+          <input
+            placeholder="Email"
+            value={tEmail}
+            onChange={(e) => setTEmail(e.target.value)}
+          />
+          <br /><br />
+
+          <select
+            value={tClass}
+            onChange={(e) => setTClass(e.target.value)}
+          >
+            <option value="">Assigned Class</option>
+            {[1,2,3,4,5,6,7,8,9,10].map(c => (
+              <option key={c} value={c}>Class {c}</option>
+            ))}
+          </select>
+
+          <input
+            placeholder="Section"
+            value={tSection}
+            onChange={(e) => setTSection(e.target.value)}
+          />
+
+          <button>Create Teacher</button>
+        </form>
+
+          <br /><br />
+
+          <input
 
         {/* 🔍 SEARCH + FILTER */}
         <h2>Students</h2>
