@@ -4,6 +4,7 @@ import "../App.css";
 const TeacherLayout = ({ children }) => {
   return (
     <div className="app">
+
       <aside className="sidebar">
         <h2>ERP Teacher</h2>
 
@@ -16,7 +17,10 @@ const TeacherLayout = ({ children }) => {
         <p>Assignments</p>
         <p>Results</p>
 
-        <button onClick={logout} className="logout">
+        <button
+          onClick={logout}
+          className="logout"
+        >
           Logout
         </button>
       </aside>
@@ -24,6 +28,7 @@ const TeacherLayout = ({ children }) => {
       <main className="content">
         {children}
       </main>
+
     </div>
   );
 };
