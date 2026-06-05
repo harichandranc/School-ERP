@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import API from "../../api/axios";
+import StudentLayout from "../../components/StudentLayout";
 
 const StudentDashboard = () => {
-  const navigate = useNavigate();
-
   const [student, setStudent] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -23,65 +21,86 @@ const StudentDashboard = () => {
     }
   };
 
-  const logoutHandler = () => {
-    localStorage.removeItem("user");
-    navigate("/login");
-  };
-
   if (loading) {
     return (
-      <div style={{ padding: "30px" }}>
-        Loading...
-      </div>
+      <StudentLayout>
+        <h2>Loading...</h2>
+      </StudentLayout>
     );
   }
 
   return (
-    <div style={{ padding: "30px" }}>
-      <h1>Student Dashboard</h1>
+    <StudentLayout>
+      {/* Welcome Card */}
+      <div className="card">
+        <h1>Welcome, {student?.user?.name} 👋</h1>
+        <p>
+          Class {student?.class} | Section {student?.section || "-"}
+        </p>
+      </div>
 
-      <hr />
+      {/* Student Info */}
+      <div className="card">
+        <h2>Student Information</h2>
 
-      <h2>
-        Welcome {student?.user?.name}
-      </h2>
+        <p>
+          <strong>Name:</strong> {student?.user?.name}
+        </p>
 
-      <p>
-        <strong>Email:</strong>{" "}
-        {student?.user?.email}
-      </p>
+        <p>
+          <strong>Email:</strong> {student?.user?.email}
+        </p>
 
-      <p>
-        <strong>Class:</strong>{" "}
-        {student?.class}
-      </p>
+        <p>
+          <strong>Class:</strong> {student?.class}
+        </p>
 
-      <p>
-        <strong>Section:</strong>{" "}
-        {student?.section || "-"}
-      </p>
+        <p>
+          <strong>Section:</strong> {student?.section || "-"}
+        </p>
 
-      <p>
-        <strong>Roll Number:</strong>{" "}
-        {student?.rollNumber || "-"}
-      </p>
+        <p>
+          <strong>Roll Number:</strong>{" "}
+          {student?.rollNumber || "-"}
+        </p>
+      </div>
 
-      <hr />
+      {/* Statistics */}
+      <div className="stats-grid">
+        <div className="stat-card">
+          <h3>Attendance</h3>
+          <p>95%</p>
+        </div>
 
-      <h3>Student Modules</h3>
+        <div className="stat-card">
+          <h3>Subjects</h3>
+          <p>6</p>
+        </div>
 
-      <ul>
-        <li>My Profile</li>
-        <li>Attendance</li>
-        <li>Subjects</li>
-        <li>Assignments</li>
-        <li>Results</li>
-      </ul>
+        <div className="stat-card">
+          <h3>Assignments</h3>
+          <p>2 Pending</p>
+        </div>
 
-      <button onClick={logoutHandler}>
-        Logout
-      </button>
-    </div>
+        <div className="stat-card">
+          <h3>Results</h3>
+          <p>Available</p>
+        </div>
+      </div>
+
+      {/* Modules */}
+      <div className="card">
+        <h2>Student Modules</h2>
+
+        <div className="module-grid">
+          <div className="module-card">My Profile</div>
+          <div className="module-card">Attendance</div>
+          <div className="module-card">Subjects</div>
+          <div className="module-card">Assignments</div>
+          <div className="module-card">Results</div>
+        </div>
+      </div>
+    </StudentLayout>
   );
 };
 
